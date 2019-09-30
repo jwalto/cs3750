@@ -1,4 +1,5 @@
 import java.io.*;
+import java.util.*;
 import java.security.Key;
 import java.security.PublicKey;
 import java.security.PrivateKey;
@@ -14,7 +15,7 @@ import javax.crypto.Cipher;
 
 public class KeyGeneration {
     public static void main(String[] args) throws Exception {
-    
+  
         //Generate a pair of keys for x
         SecureRandom randomX = new SecureRandom();
         KeyPairGenerator generatorX = KeyPairGenerator.getInstance("RSA");
@@ -58,6 +59,18 @@ public class KeyGeneration {
             yPrivKSpec.getPrivateExponent());
 
         //symmetric key creation
+        Scanner input = new Scanner(System.in);
+        String symmetricKey = "abcd";
+        while (symmetricKey.length() != 16) {
+            System.out.print("Please enter a 16 character string. ");
+            symmetricKey = input.nextLine();
+        }
+        System.out.print(symmetricKey);
+        try (Writer writer = new BufferedWriter(new OutputStreamWriter(
+            new FileOutputStream("symmetric.key")))) {
+            writer.write(symmetricKey);
+        }
+        input.close();
         
     }
 
